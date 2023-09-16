@@ -44,6 +44,7 @@ func main() {
 	router.POST("/hotel", hotelMethods.CreateHotel)
 
 	router.POST("/room", roomMethods.CreateRoom)
+	router.PATCH("/room/:id", roomMethods.UpdateRoom)
 
 	err = router.Run("localhost:8090")
 	if err != nil {

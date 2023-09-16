@@ -17,13 +17,8 @@ func (scheme *HotelScheme) GetHotelById(ctx *gin.Context) {
 
 	var hotel structure.Hotel
 
-	if err := scheme.DB.Preload("Rooms").Find(&hotel, ctx.Param("id")).Error; err != nil {
+	if err := scheme.DB.Preload("Rooms").First(&hotel, ctx.Param("id")).Error; err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error getting hotel by id": err.Error()})
-		return
-	}
-
-	if hotel.Id == 0 {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"msg": "Hotel not found"})
 		return
 	}
 
@@ -72,7 +67,6 @@ func (scheme *HotelScheme) UpdateHotel(ctx *gin.Context) {
 		return
 	}
 
-	// Используем функцию Updates для выполнения частичного обновления
 	if err := scheme.DB.Model(&scheme.Hotel).Updates(updateData).Error; err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
