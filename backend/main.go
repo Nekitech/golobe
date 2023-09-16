@@ -19,7 +19,11 @@ func init() {
 func main() {
 	db := database.ConnectDB()
 
-	db.AutoMigrate(&structure.Hotel{}, &structure.Room{})
+	err := db.AutoMigrate(&structure.Hotel{}, &structure.Room{})
+
+	if err != nil {
+		panic(err)
+	}
 
 	router := gin.Default()
 
@@ -41,7 +45,7 @@ func main() {
 
 	router.POST("/room", roomMethods.CreateRoom)
 
-	err := router.Run("localhost:8090")
+	err = router.Run("localhost:8090")
 	if err != nil {
 		log.Fatal(err)
 	}
