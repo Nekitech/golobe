@@ -1,8 +1,8 @@
-package model
+package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"golobe/structure"
+	"golobe/model"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -10,7 +10,7 @@ import (
 type RoomScheme struct {
 	gorm.Model
 	DB   *gorm.DB
-	Room structure.Room
+	Room model.Room
 }
 
 func (scheme *RoomScheme) CreateRoom(ctx *gin.Context) {

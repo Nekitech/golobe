@@ -5,8 +5,7 @@ import (
 	"github.com/joho/godotenv"
 	"golobe/database"
 	"golobe/model"
-	"golobe/structure"
-	"gorm.io/gorm"
+	"golobe/routes"
 	"log"
 )
 
@@ -19,7 +18,7 @@ func init() {
 func main() {
 	db := database.ConnectDB()
 
-	err := db.AutoMigrate(&structure.Hotel{}, &structure.Room{})
+	err := db.AutoMigrate(&model.Hotel{}, &model.Room{})
 
 	if err != nil {
 		panic(err)
@@ -27,24 +26,8 @@ func main() {
 
 	router := gin.Default()
 
-	hotelMethods := model.HotelScheme{
-		Model: gorm.Model{},
-		DB:    db,
-		Hotel: structure.Hotel{},
-	}
-	roomMethods := model.RoomScheme{
-		Model: gorm.Model{},
-		DB:    db,
-		Room:  structure.Room{},
-	}
-
-	router.GET("/hotel", hotelMethods.GetHotels)
-	router.GET("/hotel/:id", hotelMethods.GetHotelById)
-	router.PATCH("/hotel/:id", hotelMethods.UpdateHotel)
-	router.POST("/hotel", hotelMethods.CreateHotel)
-
-	router.POST("/room", roomMethods.CreateRoom)
-	router.PATCH("/room/:id", roomMethods.UpdateRoom)
+	routes.HotelRoute(db, router)
+	routes.RoomRoute(db, router)
 
 	err = router.Run("localhost:8090")
 	if err != nil {

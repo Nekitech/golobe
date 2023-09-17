@@ -1,8 +1,8 @@
-package model
+package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"golobe/structure"
+	"golobe/model"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -10,12 +10,12 @@ import (
 type HotelScheme struct {
 	gorm.Model
 	DB    *gorm.DB
-	Hotel structure.Hotel
+	Hotel model.Hotel
 }
 
 func (scheme *HotelScheme) GetHotelById(ctx *gin.Context) {
 
-	var hotel structure.Hotel
+	var hotel model.Hotel
 
 	if err := scheme.DB.Preload("Rooms").First(&hotel, ctx.Param("id")).Error; err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error getting hotel by id": err.Error()})
@@ -27,7 +27,7 @@ func (scheme *HotelScheme) GetHotelById(ctx *gin.Context) {
 
 func (scheme *HotelScheme) GetHotels(ctx *gin.Context) {
 
-	var hotels []structure.Hotel
+	var hotels []model.Hotel
 
 	if err := scheme.DB.Preload("Rooms").Find(&hotels).Error; err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error getting all hotels": err.Error()})
