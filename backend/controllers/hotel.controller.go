@@ -39,17 +39,19 @@ func (scheme *HotelScheme) GetHotels(ctx *gin.Context) {
 
 func (scheme *HotelScheme) CreateHotel(ctx *gin.Context) {
 
-	if err := ctx.ShouldBindJSON(&scheme.Hotel); err != nil {
+	var hotel model.Hotel
+
+	if err := ctx.ShouldBindJSON(&hotel); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := scheme.DB.Create(&scheme.Hotel).Error; err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	if err := scheme.DB.Create(&hotel).Error; err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": hotel})
 		return
 	}
 
-	ctx.IndentedJSON(http.StatusCreated, scheme.Hotel)
+	ctx.IndentedJSON(http.StatusCreated, &hotel)
 }
 
 func (scheme *HotelScheme) UpdateHotel(ctx *gin.Context) {
@@ -74,4 +76,21 @@ func (scheme *HotelScheme) UpdateHotel(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, &scheme.Hotel)
 
+}
+
+func (scheme *HotelScheme) DeleteHotel(ctx *gin.Context) {
+
+	id := ctx.Param("id")
+
+	if err := scheme.DB.First(&scheme.Hotel, id).Error; err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "Hotel not found"})
+		return
+	}
+
+	if err := scheme.DB.Delete(&scheme.Hotel, id).Error; err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "Hotel deleted successfully"})
 }

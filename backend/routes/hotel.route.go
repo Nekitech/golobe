@@ -18,4 +18,5 @@ func HotelRoute(DB *gorm.DB, router *gin.Engine) {
 	router.GET("/hotel/:id", hotelMethods.GetHotelById)
 	router.PATCH("/hotel/:id", hotelMethods.UpdateHotel)
 	router.POST("/hotel", hotelMethods.CreateHotel)
+	router.DELETE("/hotel/:id", hotelMethods.DeleteHotel)
 }

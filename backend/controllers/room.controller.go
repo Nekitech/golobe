@@ -15,17 +15,20 @@ type RoomScheme struct {
 
 func (scheme *RoomScheme) CreateRoom(ctx *gin.Context) {
 
-	if err := ctx.ShouldBindJSON(&scheme.Room); err != nil {
+	var room model.Room
+
+	if err := ctx.ShouldBindJSON(&room); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+
 	}
 
-	if err := scheme.DB.Create(&scheme.Room).Error; err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	if err := scheme.DB.Create(&room).Error; err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Not found hotel with this id"})
 		return
 	}
 
-	ctx.IndentedJSON(http.StatusCreated, scheme.Room)
+	ctx.IndentedJSON(http.StatusCreated, &room)
 }
 
 func (scheme *RoomScheme) UpdateRoom(ctx *gin.Context) {
@@ -49,5 +52,5 @@ func (scheme *RoomScheme) UpdateRoom(ctx *gin.Context) {
 		return
 	}
 
-	ctx.IndentedJSON(http.StatusCreated, scheme.Room)
+	ctx.IndentedJSON(http.StatusCreated, &scheme.Room)
 }

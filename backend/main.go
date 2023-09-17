@@ -18,7 +18,7 @@ func init() {
 func main() {
 	db := database.ConnectDB()
 
-	err := db.AutoMigrate(&model.Hotel{}, &model.Room{})
+	err := db.AutoMigrate(&model.Hotel{}, &model.Room{}, &model.User{})
 
 	if err != nil {
 		panic(err)
@@ -28,6 +28,7 @@ func main() {
 
 	routes.HotelRoute(db, router)
 	routes.RoomRoute(db, router)
+	routes.UserRoute(db, router)
 
 	err = router.Run("localhost:8090")
 	if err != nil {
