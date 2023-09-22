@@ -18,14 +18,9 @@ func ConnectDB() *sql.DB {
 	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=%s",
 		host, user, dbname, password, port, sslmode)
 
-	//db, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{})
 	db, err := sql.Open("postgres", dbURI)
 
 	CheckError(err)
-
-	// check db
-	//err = db.Ping()
-	//CheckError(err)
 
 	if err != nil {
 		panic("failed to connect database")

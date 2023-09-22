@@ -3,10 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"golobe/controllers"
 	"golobe/database"
-	"golobe/model"
-	"gorm.io/gorm"
+	"golobe/routes"
 	"log"
 )
 
@@ -25,18 +23,18 @@ func main() {
 	//	panic(err)
 	//}
 
-	hotelControllers := controllers.HotelScheme{
-		Model: gorm.Model{},
-		DB:    db,
-		Hotel: model.Hotel{},
-	}
+	//hotelControllers := controllers.HotelScheme{
+	//	Model: gorm.Model{},
+	//	DB:    db,
+	//	Hotel: model.Hotel{},
+	//}
 
 	router := gin.Default()
-	router.GET("/hotel", hotelControllers.GetHotels)
 
-	//routes.HotelRoute(db, router)
-	//routes.RoomRoute(db, router)
-	//routes.UserRoute(db, router)
+	routes.BookingRoute(db, router)
+	routes.HotelRoute(db, router)
+	routes.RoomRoute(db, router)
+	routes.UserRoute(db, router)
 
 	err := router.Run("localhost:8090")
 	if err != nil {

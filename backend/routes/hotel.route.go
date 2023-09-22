@@ -1,15 +1,14 @@
 package routes
 
 import (
+	"database/sql"
 	"github.com/gin-gonic/gin"
 	"golobe/controllers"
 	"golobe/model"
-	"gorm.io/gorm"
 )
 
-func HotelRoute(DB *gorm.DB, router *gin.Engine) {
+func HotelRoute(DB *sql.DB, router *gin.Engine) {
 	hotelMethods := controllers.HotelScheme{
-		Model: gorm.Model{},
 		DB:    DB,
 		Hotel: model.Hotel{},
 	}

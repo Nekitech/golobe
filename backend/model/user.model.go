@@ -11,8 +11,3 @@ type User struct {
 	DateOfBirth    string         `json:"date_of_birth,omitempty"`
 	HistoryBooking HistoryBooking `json:"history_booking" gorm:"foreignKey:UserId"`
 }
-
-type HistoryBooking struct {
-	Id     uint `json:"id,omitempty"`
-	UserId uint `json:"user_id,omitempty"`
-}

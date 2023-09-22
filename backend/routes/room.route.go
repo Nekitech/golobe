@@ -1,17 +1,16 @@
 package routes
 
 import (
+	"database/sql"
 	"github.com/gin-gonic/gin"
 	"golobe/controllers"
 	"golobe/model"
-	"gorm.io/gorm"
 )
 
-func RoomRoute(DB *gorm.DB, router *gin.Engine) {
+func RoomRoute(DB *sql.DB, router *gin.Engine) {
 	roomMethods := controllers.RoomScheme{
-		Model: gorm.Model{},
-		DB:    DB,
-		Room:  model.Room{},
+		DB:   DB,
+		Room: model.Room{},
 	}
 
 	router.POST("/room", roomMethods.CreateRoom)
