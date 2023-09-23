@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"golobe/database"
 	"golobe/routes"
 	"log"
+	"os"
 )
 
 func init() {
@@ -16,18 +19,7 @@ func init() {
 
 func main() {
 	db := database.ConnectDB()
-
-	//err := db.AutoMigrate(&model.Hotel{}, &model.Room{}, &model.User{}, &model.HistoryBooking{}, &model.Booking{})
-
-	//if err != nil {
-	//	panic(err)
-	//}
-
-	//hotelControllers := controllers.HotelScheme{
-	//	Model: gorm.Model{},
-	//	DB:    db,
-	//	Hotel: model.Hotel{},
-	//}
+	serverPort := os.Getenv("SERVER_PORT")
 
 	router := gin.Default()
 
@@ -36,11 +28,11 @@ func main() {
 	routes.RoomRoute(db, router)
 	routes.UserRoute(db, router)
 
-	err := router.Run("localhost:8090")
+	err := router.Run(serverPort)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("server start on port::8090")
+	fmt.Println("server start on port::" + serverPort)
 
 	// close database
 	defer db.Close()

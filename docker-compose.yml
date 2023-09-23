@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  golobe-backend:
+    build: ./backend
+    command: ./backend
+    ports:
+      - "8090:8090"
+    depends_on:
+      - golobe-db
+    environment:
+      - DB_HOST=golobe_db
+      - DB_USER=postgres
+      - DB_NAME=golobe_db
+      - DB_PASSWORD=347389
+      - DB_PORT=5432
+      - DB_SSLMODE=disable
+  golobe-db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - /database/data:/lib/var/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - "5436:5432"
