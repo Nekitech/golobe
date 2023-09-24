@@ -1,7 +1,7 @@
 package model
 
 type Booking struct {
-	Id           uint   `gorm:"primaryKey; autoIncrement:true" json:"id,omitempty"`
+	Id           uint   `json:"id,omitempty"`
 	BookingID    uint   `json:"booking_id,omitempty"`
 	RoomID       uint   `json:"room_id,omitempty"`
 	CheckInTime  string `json:"check_in_time"`

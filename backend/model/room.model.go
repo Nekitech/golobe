@@ -1,7 +1,7 @@
 package model
 
 type Room struct {
-	Id               uint   `json:"id,omitempty" gorm:"primaryKey;autoIncrement:true"`
+	Id               uint   `json:"id,omitempty"`
 	HotelId          uint   `json:"hotel_id,omitempty"`
 	Type             string `json:"type,omitempty"`
 	IsViewOnCity     bool   `json:"is_view_on_city,omitempty"`

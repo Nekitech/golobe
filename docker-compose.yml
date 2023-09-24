@@ -9,18 +9,22 @@ services:
     depends_on:
       - golobe-db
     environment:
-      - DB_HOST=golobe_db
+      - DB_HOST=golobe-db
       - DB_USER=postgres
       - DB_NAME=golobe_db
       - DB_PASSWORD=347389
       - DB_PORT=5432
       - DB_SSLMODE=disable
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8090
   golobe-db:
     restart: always
-    image: postgres:latest
+    image: postgres:14.9
     volumes:
       - /database/data:/lib/var/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=1234
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
     ports:
       - "5436:5432"
