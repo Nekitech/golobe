@@ -9,7 +9,7 @@ services:
     depends_on:
       - golobe-db
     environment:
-      - DB_HOST=golobe_db
+      - DB_HOST=localhost
       - DB_USER=postgres
       - DB_NAME=golobe_db
       - DB_PASSWORD=347389
