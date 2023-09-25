@@ -19,7 +19,8 @@ func init() {
 
 func main() {
 	db := database.ConnectDB()
-	serverPort := os.Getenv("SERVER_PORT")
+	host := os.Getenv("SERVER_HOST")
+	port := os.Getenv("SERVER_PORT")
 
 	router := gin.Default()
 
@@ -28,11 +29,17 @@ func main() {
 	routes.RoomRoute(db, router)
 	routes.UserRoute(db, router)
 
-	err := router.Run(serverPort)
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
+	err := router.Run(host + ":" + port)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("server start on port::" + serverPort)
+	fmt.Println("server start on port::" + host + ":" + port)
 
 	// close database
 	defer db.Close()

@@ -100,7 +100,8 @@ func (scheme *HotelScheme) CreateHotel(ctx *gin.Context) {
 	).Scan(&hotel.Id)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert hotel"})
+		//ctx.IndentedJSON(http.StatusCreated, &hotel)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 

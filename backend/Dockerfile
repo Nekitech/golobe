@@ -11,6 +11,8 @@ COPY . .
 
 RUN go build -o backend
 
+ENV GIN_MODE release
+
 EXPOSE 8090
 
 CMD [ "./backend" ]
