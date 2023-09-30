@@ -1,5 +1,5 @@
 
-drop table public.schema_migrations;
+-- drop table public.schema_migrations;
 
 drop table public.rooms;
 
