@@ -3,13 +3,13 @@ FROM golang:1.20-alpine
 WORKDIR /backend
 
 COPY go.mod ./
-COPY go.sum ./
+#COPY go.sum ./
 
-RUN go mod download
+#RUN go mod download
 
 COPY . .
 
-RUN go build -o backend
+RUN go build -o backend ./cmd/app/
 
 ENV GIN_MODE release
 

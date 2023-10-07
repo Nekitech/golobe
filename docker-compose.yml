@@ -5,7 +5,7 @@ services:
     restart: always
     image: postgres:14.9
     volumes:
-      - ./database/data:/lib/var/postgresql/data
+      - ~/database/data:/lib/var/postgresql/data
     environment:
       - POSTGRES_PASSWORD=347389
       - POSTGRES_USER=postgres

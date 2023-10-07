@@ -3,8 +3,8 @@ package routes
 import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
-	"golobe/controllers"
-	"golobe/model"
+	"golobe/internal/controllers"
+	"golobe/internal/model"
 )
 
 func RoomRoute(DB *sql.DB, router *gin.Engine) {

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"golobe/model"
+	"golobe/internal/model"
 	"log"
 	"net/http"
 )

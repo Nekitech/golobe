@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"golobe/database"
-	"golobe/routes"
+	"golobe/internal/database"
+	routes2 "golobe/internal/routes"
 	"log"
 	"os"
 )
@@ -24,10 +24,10 @@ func main() {
 
 	router := gin.Default()
 
-	routes.BookingRoute(db, router)
-	routes.HotelRoute(db, router)
-	routes.RoomRoute(db, router)
-	routes.UserRoute(db, router)
+	routes2.BookingRoute(db, router)
+	routes2.HotelRoute(db, router)
+	routes2.RoomRoute(db, router)
+	routes2.UserRoute(db, router)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
