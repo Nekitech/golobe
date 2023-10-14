@@ -1,10 +1,10 @@
-package controllers
+package services
 
 import (
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"golobe/internal/model"
+	"golobe/internal/database/model"
 	"net/http"
 )
 

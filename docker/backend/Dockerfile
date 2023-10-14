@@ -1,17 +1,15 @@
-FROM golang:1.20-alpine
+FROM golang:1.20
 
-WORKDIR ./backend
+WORKDIR ./golobe
 
-COPY ./backend/go.mod ./
-COPY ./backend/go.sum ./
+COPY ./go.mod ./
+COPY ./go.sum ./
 
-RUN go mod tidy
 RUN go mod download
-
 
 COPY . .
 
-RUN go build -o backend ./cmd/app/main.go
+RUN go build -o backend ./main.go
 
 ENV GIN_MODE release
 

@@ -6,7 +6,7 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"golobe/internal/database"
-	routes2 "golobe/internal/routes"
+	routes2 "golobe/internal/transport/routes"
 	"log"
 	"os"
 )

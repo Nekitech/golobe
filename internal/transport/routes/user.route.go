@@ -3,19 +3,19 @@ package routes
 import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
-	controllers2 "golobe/internal/controllers"
-	model2 "golobe/internal/model"
+	"golobe/internal/database/model"
+	"golobe/internal/services"
 )
 
 func UserRoute(DB *sql.DB, router *gin.Engine) {
-	userMethods := controllers2.UserScheme{
+	userMethods := services.UserScheme{
 		DB:   DB,
-		User: model2.User{},
+		User: model.User{},
 	}
 
-	bookingMethods := controllers2.BookingScheme{
+	bookingMethods := services.BookingScheme{
 		DB:      DB,
-		Booking: model2.Booking{},
+		Booking: model.Booking{},
 	}
 
 	router.POST("/user", userMethods.CreateUser, bookingMethods.CreateUserHistoryBooking)

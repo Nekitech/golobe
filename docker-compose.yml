@@ -13,7 +13,8 @@ services:
     ports:
       - "5436:5432"
   golobe-backend:
-    build: ./docker/backend
+    build:
+      dockerfile: ./docker/backend/Dockerfile
     command: ./backend
     ports:
       - "8090:8090"

@@ -3,12 +3,12 @@ package routes
 import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
-	"golobe/internal/controllers"
-	"golobe/internal/model"
+	"golobe/internal/database/model"
+	"golobe/internal/services"
 )
 
 func HotelRoute(DB *sql.DB, router *gin.Engine) {
-	hotelMethods := controllers.HotelScheme{
+	hotelMethods := services.HotelScheme{
 		DB:    DB,
 		Hotel: model.Hotel{},
 	}
