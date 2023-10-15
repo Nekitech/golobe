@@ -8,8 +8,8 @@ import (
 )
 
 func HotelRoute(DB *sql.DB, router *gin.Engine) {
-	hotelMethods := services.HotelScheme{
-		DB:    DB,
+	var hotelMethods services.Hotel = &services.HotelScheme{
+		DB:    nil,
 		Hotel: model.Hotel{},
 	}
 

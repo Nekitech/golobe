@@ -8,12 +8,12 @@ import (
 )
 
 func UserRoute(DB *sql.DB, router *gin.Engine) {
-	userMethods := services.UserScheme{
+	var userMethods services.User = &services.UserScheme{
 		DB:   DB,
 		User: model.User{},
 	}
 
-	bookingMethods := services.BookingScheme{
+	var bookingMethods services.Booking = &services.BookingScheme{
 		DB:      DB,
 		Booking: model.Booking{},
 	}

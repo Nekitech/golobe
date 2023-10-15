@@ -9,6 +9,14 @@ import (
 	"net/http"
 )
 
+type Hotel interface {
+	GetHotelById(*gin.Context)
+	GetHotels(*gin.Context)
+	CreateHotel(*gin.Context)
+	UpdateHotel(*gin.Context)
+	DeleteHotel(*gin.Context)
+}
+
 type HotelScheme struct {
 	DB    *sql.DB
 	Hotel model.Hotel

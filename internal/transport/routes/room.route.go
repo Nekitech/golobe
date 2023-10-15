@@ -8,7 +8,7 @@ import (
 )
 
 func RoomRoute(DB *sql.DB, router *gin.Engine) {
-	roomMethods := services.RoomScheme{
+	var roomMethods services.Room = &services.RoomScheme{
 		DB:   DB,
 		Room: model.Room{},
 	}

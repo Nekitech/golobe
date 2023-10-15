@@ -8,6 +8,11 @@ import (
 	"net/http"
 )
 
+type Room interface {
+	CreateRoom(*gin.Context)
+	UpdateRoom(*gin.Context)
+}
+
 type RoomScheme struct {
 	DB   *sql.DB
 	Room model.Room

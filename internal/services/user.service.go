@@ -8,9 +8,19 @@ import (
 	"net/http"
 )
 
+type User interface {
+	AuthUser(*gin.Context)
+	CreateUser(*gin.Context)
+	UpdateUser(*gin.Context)
+}
+
 type UserScheme struct {
 	DB   *sql.DB
 	User model.User
+}
+
+func (user *UserScheme) AuthUser(ctx *gin.Context) {
+
 }
 
 func (user *UserScheme) CreateUser(ctx *gin.Context) {

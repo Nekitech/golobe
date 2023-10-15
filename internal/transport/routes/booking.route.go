@@ -8,7 +8,7 @@ import (
 )
 
 func BookingRoute(DB *sql.DB, router *gin.Engine) {
-	bookingMethods := services.BookingScheme{
+	var bookingMethods services.Booking = &services.BookingScheme{
 		DB:      DB,
 		Booking: model.Booking{},
 	}

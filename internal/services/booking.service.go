@@ -9,6 +9,11 @@ import (
 	"time"
 )
 
+type Booking interface {
+	CreateBooking(*gin.Context)
+	CreateUserHistoryBooking(*gin.Context)
+}
+
 type BookingScheme struct {
 	DB      *sql.DB
 	Booking model.Booking
