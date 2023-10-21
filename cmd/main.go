@@ -6,7 +6,9 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"golobe/internal/database"
-	routes2 "golobe/internal/transport/routes"
+	"golobe/internal/handler"
+	"golobe/internal/repository"
+	services2 "golobe/internal/services"
 	"log"
 	"os"
 )
@@ -22,12 +24,16 @@ func main() {
 	host := os.Getenv("SERVER_HOST")
 	port := os.Getenv("SERVER_PORT")
 
-	router := gin.Default()
+	repos := repository.InitRepositories(db)
+	services := services2.InitServices(repos)
+	handlers := handler.InitHandlers(services)
 
-	routes2.BookingRoute(db, router)
-	routes2.HotelRoute(db, router)
-	routes2.RoomRoute(db, router)
-	routes2.UserRoute(db, router)
+	router := handlers.InitRoutes()
+	//
+	//routes2.BookingRoute(db, router)
+	//routes2.HotelRoute(db, router)
+	//routes2.RoomRoute(db, router)
+	//routes2.UserRoute(db, router)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{

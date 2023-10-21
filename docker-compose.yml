@@ -14,8 +14,8 @@ services:
       - "5436:5432"
   golobe-backend:
     build:
-      dockerfile: ./docker/backend/Dockerfile
-    command: ./backend
+      dockerfile: docker/Dockerfile
+    command: ./cmd/golobe
     ports:
       - "8090:8090"
     depends_on:

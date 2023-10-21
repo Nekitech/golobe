@@ -10,3 +10,11 @@ type User struct {
 	Address     string `json:"address,omitempty"`
 	DateOfBirth string `json:"date_of_birth,omitempty"`
 }
+
+type UserSignUp struct {
+	FirstName   string `json:"first_name,omitempty" binding:"required"`
+	LastName    string `json:"last_name,omitempty" binding:"required"`
+	Email       string `json:"email,omitempty" binding:"required"`
+	Password    string `json:"password,omitempty" binding:"required"`
+	PhoneNumber string `json:"phoneNumber,omitempty" binding:"required"`
+}

@@ -9,10 +9,10 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o backend ./main.go
+RUN go build -o cmd/golobe ./cmd/main.go
 
 ENV GIN_MODE release
 
 EXPOSE 8090
 
-CMD [ "./backend" ]
+CMD [ "./cmd/golobe" ]

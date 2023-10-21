@@ -10,7 +10,7 @@ import (
 
 type User interface {
 	AuthUser(*gin.Context)
-	CreateUser(*gin.Context)
+	CreateUser(newUser *model.UserSignUp) (*uint, error)
 	UpdateUser(*gin.Context)
 }
 
@@ -23,37 +23,40 @@ func (user *UserScheme) AuthUser(ctx *gin.Context) {
 
 }
 
-func (user *UserScheme) CreateUser(ctx *gin.Context) {
+func (user *UserScheme) CreateUser(newUser *model.UserSignUp) (*uint, error) {
 
-	if err := ctx.ShouldBindJSON(&user.User); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	//if err := ctx.ShouldBindJSON(&user.User); err != nil {
+	//	ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	//	return
+	//}
+	var idUser *uint
 
 	query := `
-		INSERT INTO users (first_name, last_name, email, password, phone_number, address, date_of_birth)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		INSERT INTO users (first_name, last_name, email, password, phone_number)
+		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id`
 
+	fmt.Println(newUser.FirstName)
+
 	err := user.DB.QueryRow(query,
-		&user.User.FirstName,
-		&user.User.LastName,
-		&user.User.Email,
-		&user.User.Password,
-		&user.User.PhoneNumber,
-		&user.User.Address,
-		&user.User.DateOfBirth,
-	).Scan(&user.User.Id)
+		newUser.FirstName,
+		newUser.LastName,
+		newUser.Email,
+		newUser.Password,
+		newUser.PhoneNumber,
+	).Scan(&idUser)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
-		return
+		//log.Fatal().JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		return nil, err
 	}
 
-	ctx.IndentedJSON(201, user.User)
+	//ctx.IndentedJSON(201, user.User)
+	//
+	//ctx.Set("user_id", &user.User.Id)
+	//ctx.Next()
 
-	ctx.Set("user_id", &user.User.Id)
-	ctx.Next()
+	return idUser, err
 }
 
 func (user *UserScheme) UpdateUser(ctx *gin.Context) {
