@@ -76,9 +76,12 @@ func (repo *HotelDB) GetHotels() (*[]model.Hotel, error) {
 
 			return &[]model.Hotel{}, err
 		}
-		newHotels := append(newHotels, hotel)
-		return &newHotels, err
+		newHotels = append(newHotels, hotel)
+		fmt.Println(hotel, newHotels)
+
+		//return &newHotels, err
 	}
+	fmt.Println(newHotels)
 	return &newHotels, err
 }
 

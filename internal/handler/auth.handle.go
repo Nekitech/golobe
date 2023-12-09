@@ -19,7 +19,10 @@ func (h *Handlers) SignUp(ctx *gin.Context) {
 		ErrorHandleResponse(ctx, http.StatusInternalServerError, err.Error())
 	}
 
+	ctx.Set("user_id", id)
+
 	ctx.JSON(http.StatusOK, map[string]interface{}{
 		"id": id,
 	})
+	ctx.Next()
 }

@@ -29,11 +29,6 @@ func main() {
 	handlers := handler.InitHandlers(services)
 
 	router := handlers.InitRoutes()
-	//
-	//routes2.BookingRoute(db, router)
-	//routes2.HotelRoute(db, router)
-	//routes2.RoomRoute(db, router)
-	//routes2.UserRoute(db, router)
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{

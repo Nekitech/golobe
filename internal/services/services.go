@@ -9,6 +9,10 @@ type Authorization interface {
 	SignUpUser(user *model.UserSignUp) (uint, error)
 }
 
+type User interface {
+	UpdateUserInfo(id string, user *map[string]interface{}) (*model.User, error)
+}
+
 type Hotels interface {
 	GetHotels() (*[]model.Hotel, error)
 	GetHotelById(id string) (*model.Hotel, error)
@@ -22,10 +26,17 @@ type Rooms interface {
 	UpdateRoom(id string, room *map[string]interface{}) (*model.Room, error)
 }
 
+type Booking interface {
+	CreateBooking(booking *model.Booking) (*model.Booking, error)
+	CreateUserHistoryBooking(userId any) error
+}
+
 type Services struct {
 	Authorization
 	Hotels
 	Rooms
+	Booking
+	User
 }
 
 func InitServices(repos *repository.Repositories) *Services {
@@ -33,5 +44,7 @@ func InitServices(repos *repository.Repositories) *Services {
 		Authorization: InitAuthService(repos.Authorization),
 		Hotels:        InitHotelService(repos.Hotels),
 		Rooms:         InitRoomService(repos.Rooms),
+		Booking:       InitBookingService(repos.Booking),
+		User:          InitUserService(repos.User),
 	}
 }
