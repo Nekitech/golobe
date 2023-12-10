@@ -50,12 +50,22 @@ func (repo *HotelDB) CreateHotel(hotel *model.Hotel) (*model.Hotel, error) {
 	return hotel, err
 }
 
-func (repo *HotelDB) GetHotels() (*[]model.Hotel, error) {
+func (repo *HotelDB) GetHotels(filter *map[string]interface{}) (*[]model.Hotel, error) {
 
-	rows, err := repo.db.Query("SELECT * FROM hotels")
+	var rows *sql.Rows
+	var err error
+	query := "SELECT * FROM hotels"
+	if len(*filter) > 0 {
 
-	if err != nil {
-		panic(err)
+		rating, _ := (*filter)["rating"]
+
+		fmt.Println(fmt.Sprintf("%v", rating))
+		query += " WHERE rating >= " + fmt.Sprintf("%v", rating)
+
+		rows, _ = repo.db.Query(query)
+
+	} else {
+		rows, _ = repo.db.Query(query)
 	}
 
 	var newHotels []model.Hotel
@@ -77,11 +87,7 @@ func (repo *HotelDB) GetHotels() (*[]model.Hotel, error) {
 			return &[]model.Hotel{}, err
 		}
 		newHotels = append(newHotels, hotel)
-		fmt.Println(hotel, newHotels)
-
-		//return &newHotels, err
 	}
-	fmt.Println(newHotels)
 	return &newHotels, err
 }
 

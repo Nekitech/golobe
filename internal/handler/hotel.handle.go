@@ -7,8 +7,15 @@ import (
 )
 
 func (h *Handlers) GetHotels(ctx *gin.Context) {
+	filter := make(map[string]interface{})
 
-	hotels, err := h.services.Hotels.GetHotels()
+	for key, values := range ctx.Request.URL.Query() {
+		if len(values) > 0 {
+			filter[key] = values[0]
+		}
+	}
+
+	hotels, err := h.services.Hotels.GetHotels(&filter)
 
 	if err != nil {
 		ErrorHandleResponse(ctx, http.StatusInternalServerError, err.Error())

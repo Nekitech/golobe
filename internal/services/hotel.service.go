@@ -19,8 +19,8 @@ func (service *HotelService) UpdateHotel(id string, hotel *map[string]interface{
 	return service.repo.UpdateHotel(id, hotel)
 }
 
-func (service *HotelService) GetHotels() (*[]model.Hotel, error) {
-	return service.repo.GetHotels()
+func (service *HotelService) GetHotels(filter *map[string]interface{}) (*[]model.Hotel, error) {
+	return service.repo.GetHotels(filter)
 }
 
 func (service *HotelService) GetHotelById(id string) (*model.Hotel, error) {

@@ -16,13 +16,7 @@ func InitHandlers(services *services.Services) *Handlers {
 
 func (h *Handlers) InitRoutes() *gin.Engine {
 	router := gin.Default()
-	//corsConfig := cors.Config{
-	//	//AllowOrigins:     []string{"*"},
-	//	AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-	//	AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "X-Requested-With"},
-	//	AllowAllOrigins:  true,
-	//	AllowCredentials: true,
-	//}
+
 	router.Use(cors.Default())
 
 	auth := router.Group("/auth")

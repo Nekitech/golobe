@@ -13,7 +13,7 @@ type User interface {
 }
 
 type Hotels interface {
-	GetHotels() (*[]model.Hotel, error)
+	GetHotels(filter *map[string]interface{}) (*[]model.Hotel, error)
 	GetHotelById(id string) (*model.Hotel, error)
 	CreateHotel(hotel *model.Hotel) (*model.Hotel, error)
 	UpdateHotel(id string, hotel *map[string]interface{}) (*model.Hotel, error)
